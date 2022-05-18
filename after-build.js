@@ -77,7 +77,7 @@ function processPackageJson(packagePath) {
     finalPackageJson = {
       ...packageJson,
       name: overridesJson.name || packageJson.name,
-      scripts: overridesJson.scripts,
+      scripts: overridesJson.scripts || packageJson.scripts,
       dependencies: overridesJson.dependencies || packageJson.dependencies,
       devDependencies: overridesJson.devDependencies || packageJson.devDependencies,
       workspaces: overridesJson.workspaces || packageJson.workspaces,

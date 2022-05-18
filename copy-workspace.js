@@ -42,6 +42,7 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
     }
     copyArgs.push(
       `${workspace}/assets/**/*`,
+      `${workspace}/public/**/*`,
       `${workspace}/.ulixee/*`,
       `${workspace}/package*.json`,
       `${workspace}/*/*.json`,
