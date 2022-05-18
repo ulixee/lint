@@ -7,7 +7,8 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
   const isStandardBuild = !copyToDir.includes('dist');
 
   const workspaces = [];
-  for (const packageGlob of pkg.workspaces.packages) {
+  const packages = pkg.workspaces ? pkg.workspaces.packages : [];
+  for (const packageGlob of packages || []) {
     if (packageGlob.startsWith('../') || packageGlob.includes('/build')) continue;
 
     let workspacePath = packageGlob;
