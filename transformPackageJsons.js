@@ -44,20 +44,6 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
       delete finalPackageJson['husky'];
       delete finalPackageJson['lint-staged'];
 
-      if (finalPackageJson.scripts && !overridesJson.scripts) {
-        for (const [key, value] of Object.entries(finalPackageJson.scripts)) {
-          if (
-            key.startsWith('tsc') ||
-            key.startsWith('watch') ||
-            key.startsWith('build') ||
-            key.startsWith('lint')
-          ) {
-            delete finalPackageJson.scripts[key];
-          }
-          if (key === 'prepare' && value === 'husky install') delete finalPackageJson.scripts[key];
-        }
-      }
-
       if (!fs.existsSync(`${packagePath}/LICENSE`) && !fs.existsSync(`${packagePath}/LICENSE.md`)) {
         fs.copyFileSync(`${__dirname}/LICENSE.md`, `${packagePath}/LICENSE.md`);
       }
@@ -65,6 +51,19 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
 
     if (finalPackageJson.main && !finalPackageJson.types) {
       finalPackageJson.types = finalPackageJson.main.replace('.js', '.d.ts');
+    }
+
+    if (finalPackageJson.scripts && !overridesJson.scripts) {
+      for (const [key, value] of Object.entries(finalPackageJson.scripts)) {
+        if (
+          key.startsWith('watch') ||
+          key.startsWith('build') ||
+          (!finalPackageJson.private && (key.startsWith('tsc') || key.startsWith('lint')))
+        ) {
+          delete finalPackageJson.scripts[key];
+        }
+        if (key === 'prepare' && value === 'husky install') delete finalPackageJson.scripts[key];
+      }
     }
 
     // check if index exists
