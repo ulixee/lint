@@ -42,8 +42,8 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
       delete finalPackageJson.workspaces;
       delete finalPackageJson['husky'];
       delete finalPackageJson['lint-staged'];
-
-      if (!overridesJson?.devDependencies || !finalPackageJson.devDependencies?.length) {
+  
+      if (!overridesJson.devDependencies || (!finalPackageJson.devDependencies && !finalPackageJson.devDependencies.length)) {
         delete finalPackageJson.devDependencies;
       }
 
