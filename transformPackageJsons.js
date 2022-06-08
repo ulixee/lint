@@ -40,9 +40,12 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
     if (isDist && !finalPackageJson.private) {
       delete finalPackageJson.private;
       delete finalPackageJson.workspaces;
-      delete finalPackageJson.devDependencies;
       delete finalPackageJson['husky'];
       delete finalPackageJson['lint-staged'];
+
+      if (!overridesJson?.devDependencies || !finalPackageJson.devDependencies?.length) {
+        delete finalPackageJson.devDependencies;
+      }
 
       if (!fs.existsSync(`${packagePath}/LICENSE`) && !fs.existsSync(`${packagePath}/LICENSE.md`)) {
         fs.copyFileSync(`${__dirname}/LICENSE.md`, `${packagePath}/LICENSE.md`);

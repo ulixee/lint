@@ -19,11 +19,12 @@
     "downlevelIteration": true,
     "rootDir": ".",
     "preserveSymlinks": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "noImplicitOverride": true
   },
   "exclude": [
     "**/tsconfig*.json",
     "node_modules",
-    "**/node_modules",
+    "**/node_modules"
   ]
 }
