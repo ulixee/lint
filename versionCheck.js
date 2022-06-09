@@ -28,6 +28,18 @@ for (const pkgPath of Array.from(pkgPaths)) {
   Fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
 }
 
+for (const sourcePkgPath of Array.from(pkgPaths)) {
+  for (const overrides of ['package.build.json', 'package.dist.json']) {
+    const pkgPath = sourcePkgPath.replace('package.json', overrides);
+    if (!Fs.existsSync(pkgPath)) continue;
+    const pkg = require(pkgPath);
+    checkDependencies('dependency', pkg?.dependencies, pkgPath);
+    checkDependencies('devDependency', pkg?.devDependencies, pkgPath);
+    checkDependencies('peerDependencies', pkg?.peerDependencies, pkgPath);
+    Fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+  }
+}
+
 // HELPERS /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function checkDependencies(type, dependencies, pkgPath) {
