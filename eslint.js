@@ -28,6 +28,7 @@ exports.monorepo = function (packageJsonRootDir) {
   return {
     root: true,
     extends: [
+      'airbnb-base',
       'airbnb-typescript/base',
       'plugin:@typescript-eslint/recommended',
       'plugin:eslint-comments/recommended',
@@ -98,6 +99,7 @@ exports.monorepo = function (packageJsonRootDir) {
           'max-classes-per-file': 'off',
           'promise/valid-params': 'off',
           'no-console': 'off',
+          'func-names': 'off',
           '@typescript-eslint/explicit-function-return-type': 'off',
           'require-await': 'off',
           '@typescript-eslint/require-await': 'off',
@@ -146,7 +148,9 @@ exports.monorepo = function (packageJsonRootDir) {
     ],
     rules: {
       'import/no-named-as-default': 'off',
+      'import/no-import-module-exports': 'off',
       'import/prefer-default-export': 'off',
+      'import/no-cycle': 'off',
       'import/namespace': 'off',
       'import/extensions': 'off',
       'import/no-extraneous-dependencies': [
@@ -169,11 +173,18 @@ exports.monorepo = function (packageJsonRootDir) {
       'array-type': 'off',
       'import-name': 'off',
       'default-case': 'off',
+      'no-new': 'off',
+      'no-empty': 'off',
       'no-continue': 'off',
+      'global-require': 'off', // use import rule instead
+      'no-promise-executor-return': 'off',
+      'no-void': 'off',
       'no-bitwise': 'off',
+      'no-useless-return': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-async-promise-executor': 'off',
       'no-return-await': 'off',
+      'no-plusplus': 'off',
       'no-return-assign': 'off',
       'prefer-destructuring': 'off',
       'no-await-in-loop': 'off',
