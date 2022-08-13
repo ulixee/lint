@@ -45,6 +45,8 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
       `${workspace}/public/**/*`,
       `${workspace}/.ulixee/*`,
       `${workspace}/package*.json`,
+      `${workspace}/*/*.sql`,
+      `${workspace}/*/migrations/*.sql`,
       `${workspace}/*/*.json`,
       `${workspace}/*/*.html`,
       `${workspace}/*/*.png`,
