@@ -52,6 +52,7 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
       `${workspace}/*/*.png`,
       `${workspace}/go/*.*`,
       `${workspace}/*.cjs`,
+      `${workspace}/.env*`,
       `${workspace}/*.mjs`,
       `${workspace}/lib/**/*.mjs`,
       `${workspace}/lib/**/*.cjs`,
@@ -61,7 +62,7 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
   }
 
   if (isStandardBuild) copyArgs.push('-a');
-
+console.log(copyArgs)
   return new Promise(resolve => {
     copyfiles([...copyArgs, copyToDir], {}, () => {
       // eslint-disable-next-line no-console
