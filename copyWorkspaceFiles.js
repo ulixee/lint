@@ -30,7 +30,9 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
     'package*.json',
     'examples/*.js',
     'examples/*.mjs',
+    '*.md',
     '.*ignore',
+    '.env.*',
   ];
   if (isStandardBuild) {
     copyArgs.push('testing/*/**', 'yarn.lock');
