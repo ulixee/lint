@@ -54,6 +54,7 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
       `${workspace}/*.cjs`,
       `${workspace}/.env*`,
       `${workspace}/*.mjs`,
+      `${workspace}/*.md`,
       `${workspace}/lib/**/*.mjs`,
       `${workspace}/lib/**/*.cjs`,
       `${workspace}/.*ignore`,
