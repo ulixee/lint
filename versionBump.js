@@ -15,7 +15,7 @@ modified.workspaces.packages = modified.workspaces?.packages?.filter(
     let child;
     if (!modified.workspaces?.packages?.length) {
       let version = process.argv[2] ?? '--patch';
-      if (process.argv[2].match(/^\d/)) {
+      if (version.match(/^\d/)) {
         version = '--new-version ' + version;
       }
       if (!version.startsWith('--')) version = '--' + version;
