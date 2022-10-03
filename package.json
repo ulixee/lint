@@ -1,12 +1,13 @@
 {
   "name": "@ulixee/repo-tools",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Common repository tools (eslint, base tsconfig, version control) for Ulixee projects",
   "license": "MIT",
   "bin": {
     "ulx-repo-after-build": "./bin/after-build.js",
     "ulx-repo-version-bump": "./bin/version-bump.js",
-    "ulx-repo-version-check": "./bin/version-check.js"
+    "ulx-repo-version-check": "./bin/version-check.js",
+    "ulx-repo-adjust-paths": "./bin/paths.js"
   },
   "publishConfig": {
     "access": "public"
