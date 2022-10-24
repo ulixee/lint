@@ -45,4 +45,4 @@ function processDir(dir) {
   }
 }
 
-processDir(`${__dirname}${relativeDirectory}`);
+processDir(`${process.cwd()}${relativeDirectory}`);
