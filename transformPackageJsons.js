@@ -50,6 +50,14 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
       if (!fs.existsSync(`${packagePath}/LICENSE`) && !fs.existsSync(`${packagePath}/LICENSE.md`)) {
         fs.copyFileSync(`${__dirname}/LICENSE.md`, `${packagePath}/LICENSE.md`);
       }
+      if (!fs.existsSync(`${packagePath}/.npmignore`)) {
+        fs.writeFileSync(`${packagePath}/.npmignore`, `.env
+.eslint*
+.gitignore
+package.*.json
+tsconfig*
+`);
+      }
     }
 
     if (finalPackageJson.main && !finalPackageJson.types) {
