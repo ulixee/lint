@@ -129,9 +129,6 @@ exports.monorepo = function (packageJsonRootDir) {
     ignorePatterns: [
       'node_modules',
       '**/test/assets/**',
-      'specifications',
-      'js-path',
-      'agent',
       'build',
       'build-dist',
       '**/babel.config.js',
@@ -194,9 +191,10 @@ exports.monorepo = function (packageJsonRootDir) {
       'class-methods-use-this': 'off',
       'consistent-return': ['off', { treatUndefinedAsUnspecified: true }],
       'spaced-comment': ['error', 'always', { markers: ['/', '/////'] }],
-      'require-await': 'error',
+      'require-await': 'off', // duplicated with ts version
       'arrow-body-style': 'off',
       'jest/no-conditional-expect': 'off',
+      '@typescript-eslint/semi': 'error',
       '@typescript-eslint/no-implied-eval': 'off', // false positives for setTimeout with bind fn
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-use-before-define': 'off',
@@ -215,6 +213,29 @@ exports.monorepo = function (packageJsonRootDir) {
         {
           ignoreTypeValueShadow: true,
           ignoreFunctionTypeParameterNameValueShadow: true,
+        },
+      ],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'variable',
+          format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+          leadingUnderscore: 'forbid',
+        },
+        {
+          selector: 'variable',
+          filter: 'unused',
+          format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+          leadingUnderscore: 'allow',
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
       '@typescript-eslint/object-literal-shorthand': 'off',
