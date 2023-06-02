@@ -12,7 +12,7 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
     author: rootPackageJson.author,
     contributors: rootPackageJson.contributors,
     engines: rootPackageJson.engines || {
-      node: '>=14.0.0',
+      node: '>=16.0.0',
     },
     publishConfig: {
       access: 'public',

@@ -101,8 +101,6 @@ exports.monorepo = function (packageJsonRootDir) {
           'no-console': 'off',
           'func-names': 'off',
           '@typescript-eslint/explicit-function-return-type': 'off',
-          'require-await': 'off',
-          '@typescript-eslint/require-await': 'off',
           '@typescript-eslint/no-unused-vars': 'off',
         },
       },
@@ -194,7 +192,7 @@ exports.monorepo = function (packageJsonRootDir) {
       'require-await': 'off', // duplicated with ts version
       'arrow-body-style': 'off',
       'jest/no-conditional-expect': 'off',
-      '@typescript-eslint/semi': 'error',
+      '@typescript-eslint/semi': 'warn',
       '@typescript-eslint/no-implied-eval': 'off', // false positives for setTimeout with bind fn
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-use-before-define': 'off',
@@ -206,7 +204,7 @@ exports.monorepo = function (packageJsonRootDir) {
       '@typescript-eslint/no-namespace': 'off',
       '@typescript-eslint/ordered-imports': 'off',
       '@typescript-eslint/return-await': 'off',
-      '@typescript-eslint/require-await': 'error',
+      '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-shadow': [
         'error',
