@@ -26,7 +26,7 @@ function restoreWorkspace() {
 
     spawnSync(`yarn`, ['version', ...versionArgs], {
       cwd: process.cwd(),
-      stdio: ['inherit', 'inherit', 'inherit', 'inherit'],
+      stdio: 'inherit',
     });
   } else {
     writeFileSync(`${baseDir}/package.json`, JSON.stringify(modified, null, 2));
@@ -44,7 +44,7 @@ function restoreWorkspace() {
         '--exact',
         '--force-publish',
       ],
-      { cwd: process.cwd(), stdio: ['inherit', 'inherit', 'inherit', 'inherit'] },
+      { cwd: process.cwd(), stdio: 'inherit' },
     );
     restoreWorkspace();
   }
