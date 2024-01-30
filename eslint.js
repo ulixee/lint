@@ -5,8 +5,7 @@ exports.monorepo = function (packageJsonRootDir) {
   const workspaces = [];
   const workspacesWithModules = ['node_modules'];
   const pkg = JSON.parse(Fs.readFileSync(`${packageJsonRootDir}/package.json`));
-
-  const packages = pkg.workspaces ? pkg.workspaces.packages : [];
+  const packages = Array.isArray(pkg.workspaces) ? pkg.workspaces : pkg.workspaces.packages ?? [];
   for (const workspaceDir of packages || []) {
     if (workspaceDir.includes('/build')) continue;
 

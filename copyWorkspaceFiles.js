@@ -7,7 +7,7 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
   const isStandardBuild = !copyToDir.includes('dist');
 
   const workspaces = [];
-  const packages = pkg.workspaces ? pkg.workspaces.packages : [];
+  const packages = Array.isArray(pkg.workspaces) ? pkg.workspaces : pkg.workspaces.packages ?? [];
   for (const packageGlob of packages || []) {
     if (packageGlob.startsWith('../') || packageGlob.includes('/build')) continue;
 
@@ -30,6 +30,8 @@ module.exports = function copyWorkspace(pkg, baseDir, copyToDir) {
     'package*.json',
     'examples/*.js',
     'examples/*.mjs',
+    '.yarnrc.yml',
+    '.yarn/**/*',
     '*.md',
     '.*ignore',
     '.env.*',

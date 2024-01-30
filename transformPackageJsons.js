@@ -12,7 +12,7 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
     author: rootPackageJson.author,
     contributors: rootPackageJson.contributors,
     engines: rootPackageJson.engines || {
-      node: '>=16.0.0',
+      node: '>=18.0.0',
     },
     publishConfig: {
       access: 'public',
@@ -73,7 +73,7 @@ tsconfig*
         ) {
           delete finalPackageJson.scripts[key];
         }
-        if (key === 'prepare' && value === 'husky install') delete finalPackageJson.scripts[key];
+        if (key === 'prepare' && value.startsWith('husky')) delete finalPackageJson.scripts[key];
       }
     }
 
@@ -87,17 +87,23 @@ tsconfig*
     if (finalPackageJson.private) {
       delete finalPackageJson.publishConfig;
     }
+    
+    const transformPackages = x => {
+      if (x.startsWith('../') && !fs.existsSync(`${buildDir}/${x.replace('/*', '')}`)) {
+        return `../${x}`;
+      }
+      if (x.includes('/build') && !fs.existsSync(`${buildDir}/${x.replace('/*', '')}`)) {
+        return `../${x}`;
+      }
+      return x;
+    };
 
-    if (finalPackageJson.workspaces && finalPackageJson.workspaces.packages) {
-      finalPackageJson.workspaces.packages = finalPackageJson.workspaces.packages.map(x => {
-        if (x.startsWith('../') && !fs.existsSync(`${buildDir}/${x.replace('/*', '')}`)) {
-          return `../${x}`;
-        }
-        if (x.includes('/build') && !fs.existsSync(`${buildDir}/${x.replace('/*', '')}`)) {
-          return `../${x}`;
-        }
-        return x;
-      });
+    if (finalPackageJson.workspaces) {
+      if (Array.isArray(finalPackageJson.workspaces.packages)){
+        finalPackageJson.workspaces.packages = finalPackageJson.workspaces.packages.map(transformPackages);
+      } else if (Array.isArray(finalPackageJson.workspaces)) {
+        finalPackageJson.workspaces = finalPackageJson.workspaces.map(transformPackages);
+      }
     }
     console.log('writing', `${packagePath}/package.json`);
     fs.writeFileSync(`${packagePath}/package.json`, JSON.stringify(finalPackageJson, null, 2));

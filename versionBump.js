@@ -5,9 +5,12 @@ const baseDir = process.cwd();
 const pkgJson = readFileSync(`${baseDir}/package.json`, 'utf-8');
 const modified = JSON.parse(pkgJson);
 if (modified.workspaces) {
-  modified.workspaces.packages = modified.workspaces.packages?.filter(
-    x => !x.startsWith('..') && !x.includes('/build'),
-  );
+  const filterNonBuild = x => !x.startsWith('..') && !x.includes('/build');
+  if (Array.isArray(modified.workspaces)) {
+    modified.workspaces = modified.workspaces?.filter(filterNonBuild);
+  } else if (Array.isArray(modified.workspaces.packages)) {
+    modified.workspaces.packages = modified.workspaces.packages?.filter(filterNonBuild);
+  }
 }
 function restoreWorkspace() {
   console.log('Restoring Package.json'); // eslint-disable-line no-console
@@ -17,7 +20,10 @@ function restoreWorkspace() {
 (async () => {
   console.log('Removing external workspaces from package.json at: ', baseDir); // eslint-disable-line no-console
 
-  if (!modified.workspaces?.packages?.length) {
+  if (
+    !(Array.isArray(modified.workspaces?.packages) && modified.workspaces.packages.length) &&
+    !(Array.isArray(modified.workspaces) && modified.workspaces.length)
+  ) {
     let versionArgs = [process.argv[2] ?? '--patch'];
     if (versionArgs[0].match(/^\d/)) {
       versionArgs.unshift('--new-version');
