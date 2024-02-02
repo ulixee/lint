@@ -64,7 +64,7 @@ function recursivelyFindPackageFiles(pkgPath) {
   const pkgDir = Path.dirname(pkgPath);
   if (pkgDir.startsWith('build')) return;
 
-  const workspaces = pkg.workspaces?.packages?.map(x => x.replace('/build', '')) || [];
+  const workspaces = (Array.isArray(pkg.workspaces) ? pkg.workspaces : pkg.workspaces?.packages)?.map(x => x.replace('/build', '')) || [];
   for (const workspace of workspaces) {
     if (workspace.includes('/*')) {
       const workspaceDir = workspace.replace('/*', '');
