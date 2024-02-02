@@ -33,6 +33,11 @@ module.exports = function transformPackageJsons(rootPackageJson, startDir, build
       version: undefined, // put here for order
       description: undefined, // here for order
       ...rootPackageDefaults,
+      main: undefined, // here for order
+      types: undefined, // here for order
+      exports: undefined, // here for order
+      dependencies: undefined, // here for order
+      devDependencies: undefined, // here for order
       ...packageJson,
       ...overridesJson,
     };
@@ -105,7 +110,6 @@ tsconfig*
         finalPackageJson.workspaces = finalPackageJson.workspaces.map(transformPackages);
       }
     }
-    console.log('writing', `${packagePath}/package.json`);
     fs.writeFileSync(`${packagePath}/package.json`, JSON.stringify(finalPackageJson, null, 2));
   });
 };
