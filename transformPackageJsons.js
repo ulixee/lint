@@ -66,7 +66,10 @@ tsconfig*
     }
 
     if (!finalPackageJson.types && fs.existsSync(`${packagePath}/index.d.ts`)) {
-      finalPackageJson.types = finalPackageJson.main.replace('.js', '.d.ts');
+      if (finalPackageJson.main)
+        finalPackageJson.types = finalPackageJson.main.replace('.js', '.d.ts');
+      else
+        finalPackageJson.types = 'index.d.ts';
     }
 
     if (finalPackageJson.scripts && !overridesJson.scripts) {
