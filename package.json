@@ -1,6 +1,6 @@
 {
   "name": "@ulixee/repo-tools",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "Common repository tools (eslint, base tsconfig, version control) for Ulixee projects",
   "license": "MIT",
   "bin": {
@@ -30,6 +30,6 @@
     "copyfiles": "^2.4.1",
     "prettier": "^3.2.4",
     "pretty-quick": "^4.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }
