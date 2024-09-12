@@ -1,11 +1,12 @@
-const Path = require('path');
 const Fs = require('fs');
 
 exports.monorepo = function (packageJsonRootDir) {
   const workspaces = [];
   const workspacesWithModules = ['node_modules'];
   const pkg = JSON.parse(Fs.readFileSync(`${packageJsonRootDir}/package.json`));
-  const packages = Array.isArray(pkg.workspaces) ? pkg.workspaces : pkg.workspaces.packages ?? [];
+  const packages = Array.isArray(pkg.workspaces) ? pkg.workspaces : pkg.workspaces?.packages ?? [];
+  const tsconfigs = [];
+
   for (const workspaceDir of packages || []) {
     if (workspaceDir.includes('/build')) continue;
 
@@ -13,8 +14,11 @@ exports.monorepo = function (packageJsonRootDir) {
     workspaces.push(workspace);
     workspacesWithModules.push(workspace);
     workspacesWithModules.push(`${workspace}/node_modules`);
+    const baseDir = `${packageJsonRootDir}/${workspace}`;
+    if (Fs.existsSync(`${baseDir}/tsconfig.json`)) {
+      tsconfigs.push(`${workspace}/tsconfig.json`);
+    }
     if (workspaceDir.endsWith('/*')) {
-      const baseDir = `${packageJsonRootDir}/${workspace}`;
       for (const sub of Fs.readdirSync(baseDir)) {
         if (Fs.lstatSync(`${baseDir}/${sub}`).isDirectory()) {
           workspaces.push(`${workspace}/${sub}`);
@@ -41,14 +45,13 @@ exports.monorepo = function (packageJsonRootDir) {
     ],
     plugins: ['monorepo-cop'],
     parserOptions: {
-      project: Path.join(packageJsonRootDir, 'tsconfig.json'),
-      extraFileExtensions: ['.mjs'],
+      project: true,
     },
     settings: {
       'import/external-module-folders': workspacesWithModules,
       'import/resolver': {
         typescript: {
-          project: ['tsconfig.json'],
+          project: ['tsconfig.json', ...tsconfigs],
         },
       },
     },

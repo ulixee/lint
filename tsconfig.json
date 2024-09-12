@@ -17,7 +17,6 @@
     "allowJs": true,
     "skipDefaultLibCheck": true,
     "downlevelIteration": true,
-    "rootDir": ".",
     "preserveSymlinks": false,
     "experimentalDecorators": true,
     "noImplicitOverride": true
