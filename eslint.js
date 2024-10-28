@@ -31,8 +31,6 @@ exports.monorepo = function (packageJsonRootDir) {
   return {
     root: true,
     extends: [
-      'airbnb-base',
-      'airbnb-typescript/base',
       'plugin:@typescript-eslint/recommended',
       'plugin:eslint-comments/recommended',
       'plugin:jest/recommended',
@@ -194,7 +192,6 @@ exports.monorepo = function (packageJsonRootDir) {
       'require-await': 'off', // duplicated with ts version
       'arrow-body-style': 'off',
       'jest/no-conditional-expect': 'off',
-      '@typescript-eslint/semi': 'warn',
       '@typescript-eslint/no-implied-eval': 'off', // false positives for setTimeout with bind fn
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-use-before-define': 'off',
@@ -258,23 +255,21 @@ exports.monorepo = function (packageJsonRootDir) {
         {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '.*',
         },
       ],
+      '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/object-literal-shorthand': 'off',
       '@typescript-eslint/object-shorthand-properties-first': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/explicit-function-return-type': [
         'error',
         { allowExpressions: true, allowHigherOrderFunctions: true },
       ],
       '@typescript-eslint/no-inferrable-types': 'warn',
-      '@typescript-eslint/lines-between-class-members': [
-        'error',
-        'always',
-        { exceptAfterSingleLine: true },
-      ],
       '@typescript-eslint/member-ordering': [
         'error',
         {
